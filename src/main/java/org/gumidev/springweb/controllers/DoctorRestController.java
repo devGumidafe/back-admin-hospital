@@ -1,17 +1,13 @@
 package org.gumidev.springweb.controllers;
 
 import org.gumidev.springweb.entities.Doctor;
-import org.gumidev.springweb.entities.User;
 import org.gumidev.springweb.model.ImageURL;
 import org.gumidev.springweb.services.doctor.IDoctorService;
-import org.gumidev.springweb.services.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,9 +20,6 @@ public class DoctorRestController {
 
     @Autowired
     private IDoctorService doctorService;
-
-    @Autowired
-    private IUserService userService;
 
     @GetMapping("/doctors")
     public List<Doctor> index() {
@@ -83,8 +76,6 @@ public class DoctorRestController {
         try {
             if (doctor.getName() != null || !doctor.getName().isEmpty())
                 currentDoctor.setName(doctor.getName());
-            // if (doctor.getImage() != null || !doctor.getImage().isEmpty())
-            // currentDoctor.setImage(doctor.getImage());
             if (doctor.getHospital() != null)
                 currentDoctor.setHospital(doctor.getHospital());
 
