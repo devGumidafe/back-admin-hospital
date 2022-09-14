@@ -35,7 +35,11 @@ public class DoctorRestController {
 
     @GetMapping("/doctors/{id}")
     public Doctor show(@PathVariable Long id) {
-        return doctorService.findById(id);
+        try {
+            return doctorService.findById(id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @GetMapping("/doctors/name/{name}")
@@ -65,12 +69,36 @@ public class DoctorRestController {
     }
 
     @PutMapping("/doctors/{id}")
-    public Doctor update(@PathVariable Long id, @Valid @RequestBody Doctor doctor) {
-        Doctor doctorUpdate = doctorService.findById(id);
-        doctorUpdate.setName(doctor.getName());
-        doctorUpdate.setImage(doctor.getImage());
+    public ResponseEntity<?> update(@RequestBody Doctor doctor, @PathVariable Long id) {
+        Doctor currentDoctor = doctorService.findById(id);
+        Doctor updateDoctor = null;
+        Map<String, Object> response = new HashMap<>();
 
-        return doctorService.save(doctorUpdate);
+        if (currentDoctor == null) {
+            response.put("message", "Error: no se pudo editar, el Médico ID: "
+                    .concat(id.toString().concat(" no existe en la base de datos")));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            if (doctor.getName() != null || !doctor.getName().isEmpty())
+                currentDoctor.setName(doctor.getName());
+            // if (doctor.getImage() != null || !doctor.getImage().isEmpty())
+            // currentDoctor.setImage(doctor.getImage());
+            if (doctor.getHospital() != null)
+                currentDoctor.setHospital(doctor.getHospital());
+
+            updateDoctor = doctorService.save(currentDoctor);
+
+        } catch (DataAccessException e) {
+            response.put("message", "Error al realizar el update en la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("message", "El Médico ha sido actualizado con exito!");
+        response.put("doctor", updateDoctor);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/doctors/{id}")
