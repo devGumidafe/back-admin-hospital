@@ -25,6 +25,10 @@ public class Doctor implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
+
     public Doctor() {
     }
 
@@ -58,5 +62,13 @@ public class Doctor implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
     }
 }

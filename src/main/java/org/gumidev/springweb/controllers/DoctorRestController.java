@@ -59,7 +59,7 @@ public class DoctorRestController {
         }
 
         response.put("message", "El doctor ha sido creado con exito!");
-        response.put("user", doctor);
+        response.put("doctor", doctor);
 
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }

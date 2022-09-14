@@ -18,7 +18,7 @@ public class Hospital implements Serializable {
 
     @Column(nullable = false)
     @NotBlank(message = "is required")
-    @Size(min = 3, max = 20, message = "size must be between 3 and 20")
+    @Size(min = 3, max = 100, message = "size must be between 3 and 50")
     private String name;
 
     private String image;
