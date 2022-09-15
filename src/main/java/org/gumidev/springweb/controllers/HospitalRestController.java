@@ -83,11 +83,6 @@ public class HospitalRestController {
         hospitalService.delete(id);
     }
 
-    @PostMapping("/hospitals/{hospitalId}/doctors/{doctorId}")
-    public void addDoctor(@PathVariable Long hospitalId, @PathVariable Long doctorId) {
-        hospitalService.addDoctor(hospitalId, doctorId);
-    }
-
     @PutMapping("hospitals/{id}/image")
     public ResponseEntity<?> updateImage(@RequestBody ImageURL urlImage, @PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();

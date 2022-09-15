@@ -45,17 +45,6 @@ public class HospitalServiceImplement implements IHospitalService {
     }
 
     @Override
-    public void addDoctor(Long hospitalId, Long doctorId) {
-        Hospital hospital = hospitalDao.findById(hospitalId).orElse(null);
-        Doctor doctor = doctorDao.findById(doctorId).orElse(null);
-
-        assert hospital != null;
-        hospital.getDoctorList().add(doctor);
-
-        hospitalDao.save(hospital);
-    }
-
-    @Override
     public List<Hospital> findAllByName(String name) {
         return hospitalDao.findAllByName(name);
     }

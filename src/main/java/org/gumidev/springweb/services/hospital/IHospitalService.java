@@ -16,8 +16,6 @@ public interface IHospitalService {
 
     public void delete(Long id);
 
-    public void addDoctor(Long hospitalId, Long doctorId);
-
     public List<Hospital> findAllByDoctor(Long id);
 
     public Hospital findByDoctor(Long id);
