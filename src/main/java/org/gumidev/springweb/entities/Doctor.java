@@ -3,6 +3,9 @@ package org.gumidev.springweb.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 @Entity
@@ -25,8 +28,9 @@ public class Doctor implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Hospital hospital;
 
     public Doctor() {

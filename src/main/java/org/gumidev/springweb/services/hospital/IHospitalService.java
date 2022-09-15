@@ -1,7 +1,6 @@
 package org.gumidev.springweb.services.hospital;
 
 import org.gumidev.springweb.entities.Hospital;
-import org.gumidev.springweb.entities.User;
 
 import java.util.List;
 
@@ -18,6 +17,10 @@ public interface IHospitalService {
     public void delete(Long id);
 
     public void addDoctor(Long hospitalId, Long doctorId);
+
+    public List<Hospital> findAllByDoctor(Long id);
+
+    public Hospital findByDoctor(Long id);
 }
 
 

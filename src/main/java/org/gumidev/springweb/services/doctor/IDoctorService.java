@@ -16,5 +16,3 @@ public interface IDoctorService {
 
     public void delete(Long id);
 }
-
-

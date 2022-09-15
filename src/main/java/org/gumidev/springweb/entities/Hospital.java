@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "hospitals")
@@ -27,12 +27,8 @@ public class Hospital implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "hospital_doctor",
-            joinColumns = @JoinColumn(name = "hospital_id"),
-            inverseJoinColumns = @JoinColumn(name = "doctor_id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"hospital_id", "doctor_id"}))
-    private List<Doctor> doctorList = new ArrayList<>();
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
+    private Set<Doctor> doctorList = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -66,11 +62,11 @@ public class Hospital implements Serializable {
         this.user = user;
     }
 
-    public List<Doctor> getDoctorList() {
+    public Set<Doctor> getDoctorList() {
         return doctorList;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
+    public void setDoctorList(Set<Doctor> doctorList) {
         this.doctorList = doctorList;
     }
 }

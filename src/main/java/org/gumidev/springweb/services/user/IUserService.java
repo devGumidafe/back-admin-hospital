@@ -1,7 +1,6 @@
 package org.gumidev.springweb.services.user;
 
 import org.gumidev.springweb.entities.User;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ public interface IUserService {
 
     User findByEmailIgnoreCaseAndPassword(String email, String password);
 
-    //void upload(MultipartFile file, User user);
 }
 
 

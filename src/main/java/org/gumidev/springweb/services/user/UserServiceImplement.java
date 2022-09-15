@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -54,10 +53,4 @@ public class UserServiceImplement implements IUserService {
     public List<User> findAllByName(String name) {
         return userDao.findAllByName(name);
     }
-
-//    @Override
-//    public void upload(MultipartFile file, User user) {
-//        userDao.upload(file, user);
-//    }
-
 }

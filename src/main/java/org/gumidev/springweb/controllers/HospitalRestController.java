@@ -1,7 +1,6 @@
 package org.gumidev.springweb.controllers;
 
 import org.gumidev.springweb.entities.Hospital;
-import org.gumidev.springweb.entities.User;
 import org.gumidev.springweb.model.ImageURL;
 import org.gumidev.springweb.services.hospital.IHospitalService;
 import org.gumidev.springweb.services.user.IUserService;
@@ -41,6 +40,11 @@ public class HospitalRestController {
     @GetMapping("/hospitals/name/{name}")
     public List<Hospital> getHospitalByName(@PathVariable String name) {
         return hospitalService.findAllByName(name);
+    }
+
+    @GetMapping("/hospitals/doctor/{id}")
+    public Hospital getHospitalByDoctor(@PathVariable Long id) {
+        return hospitalService.findByDoctor(id);
     }
 
     @PostMapping("/hospitals")

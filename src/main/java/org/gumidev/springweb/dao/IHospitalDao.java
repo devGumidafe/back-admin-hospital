@@ -12,4 +12,7 @@ public interface IHospitalDao extends CrudRepository<Hospital, Long> {
 
     @Query("select h from Hospital h where lower(h.name) like %?1%")
     List<Hospital> findAllByName(String name);
+
+    @Query("select h from Hospital h join fetch h.doctorList d where d.id = ?1")
+    Hospital findByDoctor(Long id);
 }

@@ -1,8 +1,10 @@
 package org.gumidev.springweb.controllers;
 
 import org.gumidev.springweb.entities.Doctor;
+import org.gumidev.springweb.entities.Hospital;
 import org.gumidev.springweb.model.ImageURL;
 import org.gumidev.springweb.services.doctor.IDoctorService;
+import org.gumidev.springweb.services.hospital.IHospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -21,9 +23,13 @@ public class DoctorRestController {
     @Autowired
     private IDoctorService doctorService;
 
+    @Autowired
+    private IHospitalService hospitalService;
+
     @GetMapping("/doctors")
-    public List<Doctor> index() {
-        return doctorService.findAll();
+    public ResponseEntity<List<Doctor>> index() {
+        List<Doctor> doctors = doctorService.findAll();
+        return new ResponseEntity<List<Doctor>>(doctors, HttpStatus.OK);
     }
 
     @GetMapping("/doctors/{id}")
@@ -43,11 +49,13 @@ public class DoctorRestController {
     @PostMapping("/doctors")
     public ResponseEntity<?> create(@RequestBody Doctor newDoctor) {
         Doctor doctor = null;
+        Hospital hospital = null;
         Map<String, Object> response = new HashMap<>();
 
         try {
-            doctor = newDoctor;
-            doctorService.save(doctor);
+            hospital = hospitalService.findById(newDoctor.getHospital().getId());
+            newDoctor.setHospital(hospital);
+            doctor = doctorService.save(newDoctor);
 
         } catch (DataAccessException e) {
             response.put("message", "Error al crear el doctor");
@@ -76,11 +84,11 @@ public class DoctorRestController {
         try {
             if (doctor.getName() != null || !doctor.getName().isEmpty())
                 currentDoctor.setName(doctor.getName());
-            if (doctor.getHospital() != null)
+            if (doctor.getHospital() != null) {
                 currentDoctor.setHospital(doctor.getHospital());
+            }
 
             updateDoctor = doctorService.save(currentDoctor);
-
         } catch (DataAccessException e) {
             response.put("message", "Error al realizar el update en la base de datos");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

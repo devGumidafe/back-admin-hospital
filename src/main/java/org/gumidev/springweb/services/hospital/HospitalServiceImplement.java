@@ -4,7 +4,6 @@ import org.gumidev.springweb.dao.IDoctorDao;
 import org.gumidev.springweb.dao.IHospitalDao;
 import org.gumidev.springweb.entities.Doctor;
 import org.gumidev.springweb.entities.Hospital;
-import org.gumidev.springweb.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -59,5 +58,10 @@ public class HospitalServiceImplement implements IHospitalService {
     @Override
     public List<Hospital> findAllByName(String name) {
         return hospitalDao.findAllByName(name);
+    }
+
+    @Override
+    public Hospital findByDoctor(Long id) {
+        return hospitalDao.findByDoctor(id);
     }
 }
