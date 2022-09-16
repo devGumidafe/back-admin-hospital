@@ -32,18 +32,28 @@ public class MenuFrontend {
         menu[1] = new Menu();
         menu[1].setTitle("Maintenance");
         menu[1].setIcon("mdi mdi-folder-lock-open");
-        menu[1].setSubmenu(new SubMenu[3]);
-        menu[1].getSubmenu()[1] = new SubMenu();
-        menu[1].getSubmenu()[1].setTitle("Hospitals");
-        menu[1].getSubmenu()[1].setUrl("hospitals");
-        menu[1].getSubmenu()[2] = new SubMenu();
-        menu[1].getSubmenu()[2].setTitle("Doctors");
-        menu[1].getSubmenu()[2].setUrl("doctors");
+
+        if (role.equals("User")) {
+            menu[1].setSubmenu(new SubMenu[2]);
+            menu[1].getSubmenu()[0] = new SubMenu();
+            menu[1].getSubmenu()[0].setTitle("Hospitals");
+            menu[1].getSubmenu()[0].setUrl("hospitals");
+            menu[1].getSubmenu()[1] = new SubMenu();
+            menu[1].getSubmenu()[1].setTitle("Doctors");
+            menu[1].getSubmenu()[1].setUrl("doctors");
+        }
 
         if (role.equals("ADMIN")) {
+            menu[1].setSubmenu(new SubMenu[3]);
             menu[1].getSubmenu()[0] = new SubMenu();
             menu[1].getSubmenu()[0].setTitle("Users");
             menu[1].getSubmenu()[0].setUrl("users");
+            menu[1].getSubmenu()[1] = new SubMenu();
+            menu[1].getSubmenu()[1].setTitle("Hospitals");
+            menu[1].getSubmenu()[1].setUrl("hospitals");
+            menu[1].getSubmenu()[2] = new SubMenu();
+            menu[1].getSubmenu()[2].setTitle("Doctors");
+            menu[1].getSubmenu()[2].setUrl("doctors");
         }
 
         return menu;
