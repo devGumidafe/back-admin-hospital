@@ -56,7 +56,6 @@ public class UserRestController {
             return responseValidator;
 
         try {
-            user.setImage("");
             newUser = userService.save(user);
 
         } catch (DataAccessException e) {
