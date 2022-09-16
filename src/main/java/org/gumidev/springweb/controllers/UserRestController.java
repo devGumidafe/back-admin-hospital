@@ -5,6 +5,7 @@ import org.gumidev.springweb.entities.User;
 import org.gumidev.springweb.model.ImageURL;
 import org.gumidev.springweb.services.user.IUserService;
 import org.gumidev.springweb.utils.JwtUtil;
+import org.gumidev.springweb.utils.MenuFrontend;
 import org.gumidev.springweb.utils.Validators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -160,13 +161,17 @@ public class UserRestController {
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         if (user == null) {
             response.put("message", "Email o contraseña incorrectos");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
+
+        user.setPassword(null);
         response.put("message", "El usuario ha sido logueado con exito!");
         response.put("user", user);
         response.put("token", jwtUtil.generateToken(user));
+        response.put("menu", MenuFrontend.getMenu(user.getRole()));
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
