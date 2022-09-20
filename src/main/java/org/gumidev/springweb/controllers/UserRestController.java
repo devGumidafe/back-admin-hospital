@@ -217,4 +217,9 @@ public class UserRestController {
         response.put("user", updatedUser);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
+
+    public boolean isAdmin(User user) {
+        return user.getRole().equals("ROLE_ADMIN");
+    }
+
 }
