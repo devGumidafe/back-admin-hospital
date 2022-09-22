@@ -1,8 +1,8 @@
 # BACK ADMIN HOSPITAL
 
 Proyecto en construcción para administrar un hospital usando Angular en el Frontend y Spring Boot en el Backend.  
-El front esta desplegado en Vercel y el backend en Heroku.
-Se ha usado la base de datos de Postgres de Heroku.
+El front esta desplegado en Vercel y el backend en Heroku.  
+Se ha usado la base de datos de PostgreSql de Heroku.
 
 ## Comenzando 🚀
 
@@ -15,7 +15,8 @@ mvn spring-boot:run
 ## Incluye 📦
 
 - Spring-Boot
-- Postgres
+- PostgreSql
+- JWT (Json Web Token)
 
 ## Autor ✒️
 
